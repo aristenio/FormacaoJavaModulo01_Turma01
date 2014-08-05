@@ -1,5 +1,6 @@
 
 public class Agencia {
+	
 	String numero;
 	ContaBancaria[] contas = new ContaBancaria[20];
 	
@@ -10,5 +11,15 @@ public class Agencia {
 				break;
 			}
 		}
+	}
+
+	public ContaBancaria consultarConta(int numeroConta) {
+		for (int i = 0; i < this.contas.length; i++) {
+			if(this.contas[i] != null && this.contas[i].numeroConta == numeroConta){
+				return this.contas[i];
+			}
+		}
+		
+		return null;
 	}
 }

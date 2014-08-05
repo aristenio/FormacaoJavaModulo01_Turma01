@@ -6,6 +6,17 @@ public class ContaBancaria {
 	int saldo;
 	int limite;
 	
+	public ContaBancaria(int numeroConta, Cliente cliente) {
+		this.numeroConta = numeroConta;
+		this.cliente = cliente;
+		this.saldo = 0;
+		this.limite = 1000;
+	}
+
+	public ContaBancaria() {
+
+	}
+
 	public void deposita(int valor){
 		saldo += valor;
 	}
