@@ -6,7 +6,7 @@ public class TesteContas2 {
 		Cliente cliente = new Cliente();
 		cliente.nome = "Joao";
 		cliente.sobrenome = "Silva";
-		cliente.CPF = "12345678999";
+		cliente.cpf = "12345678999";
 		cliente.endereco.logradouro = "rua m, 546";
 		
 		ContaBancaria contaBancaria1 = new ContaBancaria();
