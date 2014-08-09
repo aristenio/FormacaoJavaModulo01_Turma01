@@ -1,0 +1,201 @@
+import java.util.Scanner;
+
+
+public class Programa {
+	
+	static Banco bancoSelecionado = new Banco("Banco CEPEP");
+	public static Agencia agenciaSelecionada;
+	public static ContaBancaria contaSelecionada;
+	
+	public static void main(String[] args) {
+		menuInicial();
+	}
+	
+	private static void menuInicial() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("----------------------------------");
+		System.out.println("-- Bem vindo ao Banco "+bancoSelecionado.nome+" ---");
+		System.out.println("Você deseja:");
+		System.out.println("1 - Cadastrar uma nova conta:");
+		System.out.println("2 - Acessar sua conta:");
+		System.out.println("3 - Sair:");
+
+		int opcao = scanner.nextInt();
+		
+		switch (opcao) {
+		case 1:
+			cadastrarConta();
+			menuInicial();
+			break;
+		case 2:
+			acessarConta();
+			menuInicial();
+			break;
+		case 3:
+			System.exit(0);
+		default:
+			menuInicial();
+		}
+		
+	}
+
+	private static void acessarConta() {
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("-- Digite sua agencia: -----------");
+		String agencia = scanner.nextLine();
+		
+		agenciaSelecionada = bancoSelecionado.consultarAgencia(agencia);
+		
+		if(agenciaSelecionada == null){
+			System.out.println("Agencia nao encontrada");
+			menuInicial();
+		}
+				
+		System.out.println("-- Digite numero da conta: ---");
+		int numeroConta = scanner.nextInt();
+		
+		contaSelecionada = agenciaSelecionada.consultarConta(numeroConta);
+
+		if(contaSelecionada == null){
+			System.out.println("Conta nao encontrada");
+			menuInicial();
+		}
+		
+		menuContaBancaria();
+	}
+	
+	static void menuContaBancaria() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("------Bem vindo "+contaSelecionada.getCliente().getNome()+" ----");
+		System.out.println("------------------------------------------------------");
+		System.out.println("------Selecione uma opcao:-----");
+		System.out.println("------1 - Saque:-----");
+		System.out.println("------2 - Deposito:-----");
+		System.out.println("------3 - Transferencia:-----");
+		System.out.println("------4 - Saldo:-----");
+		System.out.println("------5 - Voltar ao menu inicial-----");
+		int opcao = scanner.nextInt();
+		
+		switch (opcao) {
+		case 1:
+			efetuarSaque();
+			break;
+		case 2:
+			efetuarDeposito();
+			break;
+		case 3:
+			efetuarTransferencia();
+			break;
+		case 4:
+			consultarSaldo();
+			break;
+		case 5:
+			menuInicial();
+			return;
+		default:
+			menuContaBancaria();
+		}
+
+		menuContaBancaria();
+	}
+
+	static void consultarSaldo() {
+		System.out.println("------Opção Saldo selecionada:-----");
+		System.out.println("------Seu saldo atual é de:-----");
+		System.out.println("------R$ "+contaSelecionada.saldo+" reais-----");
+		
+	}
+
+	static void efetuarDeposito() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("------Opção Desposito selecionada:-----");
+		System.out.println("------Digite o valor do deposito:-----");
+		int valor = scanner.nextInt();
+		contaSelecionada.deposita(valor);
+		System.out.println("Deposito de R$ "+valor+" reais efetuado com sucesso.");
+	}
+
+	static void efetuarSaque() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("------Opção Saque selecionada:-----");
+		System.out.println("------Digite o valor do saque:-----");
+		int valor = scanner.nextInt();
+		
+		if(contaSelecionada.sacar(valor))
+			System.out.println("Saque de R$ "+valor+" reais efetuado com sucesso.");
+		else
+			System.out.println("Saque de R$ "+valor+" reais não realizado. Saldo insuficiente!");
+	}
+
+	static void efetuarTransferencia() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("------Opção Transferencia selecionada:-----");
+		System.out.println("------Digite a agencia para transferencia:-----");
+		String agencia = scanner.nextLine();
+		Agencia agenciaTranferencia = bancoSelecionado.consultarAgencia(agencia);
+		
+		if(agenciaSelecionada == null){
+			System.out.println("--Agencia não encontrada--");
+			return;
+		}
+
+		System.out.println("------Digite a agencia para transferencia:-----");
+		int numeroContaTransferencia = scanner.nextInt();
+		ContaBancaria contaTranferencia = agenciaTranferencia.consultarConta(numeroContaTransferencia);
+		
+		if(contaTranferencia == null){
+			System.out.println("--Conta não encontrada--");
+			return;
+		}
+		
+		System.out.println("------Digite o valor da tranferencia:-----");
+		int valor = scanner.nextInt();
+
+		if(contaSelecionada.transfere(contaTranferencia, valor))
+			System.out.println("Transferencia efetuada com sucesso!");
+		else
+			System.out.println("Não foi possível efetuar a transferencia");
+		
+	}
+
+	static void cadastrarConta() {
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Nome:");
+		String nome = scanner.nextLine();
+		System.out.println("Sobrenome:");
+		String sobrenome = scanner.nextLine();
+		System.out.println("CPF:");
+		String cpf = scanner.nextLine();
+		System.out.println("Endereco:");
+		System.out.println("Tpo:");
+		String tipo = scanner.nextLine();
+		System.out.println("Logradouro:");
+		String logradouro = scanner.nextLine();
+		System.out.println("Numero:");
+		int numero = scanner.nextInt();
+		System.out.println("Complemento:");
+		String complemento = scanner.nextLine();
+		
+		Endereco endereco = new Endereco(tipo,logradouro,numero,complemento);
+		Cliente cliente = new Cliente(nome,sobrenome,cpf, endereco);
+		
+		Agencia agencia = bancoSelecionado.agencias[0];
+		agenciaSelecionada = agencia;
+
+		int numeroConta = (int)(Math.random() * 10000);
+		
+		ContaBancaria novaConta = new ContaBancaria(numeroConta,cliente);
+		agencia.adicionarConta(novaConta);
+		
+		System.out.println("Cliente "+novaConta.getCliente().getNome()+" "+novaConta.getCliente().getSobrenome()+" seja bem vindo ao "+bancoSelecionado.nome);
+		System.out.println("Sua agência é a "+agencia.numero);
+		System.out.println("Sua conta é a "+novaConta.getNumeroConta());
+		
+		contaSelecionada = novaConta;
+		
+		menuContaBancaria();
+	}
+
+}
