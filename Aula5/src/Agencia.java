@@ -1,8 +1,8 @@
 
 public class Agencia {
 	
-	String numero;
-	ContaBancaria[] contas = new ContaBancaria[20];
+	private String numero;
+	private ContaBancaria[] contas = new ContaBancaria[20];
 	
 	public void adicionarConta(ContaBancaria contaBancaria){
 		for (int i = 0; i < contas.length; i++) {
@@ -14,12 +14,34 @@ public class Agencia {
 	}
 
 	public ContaBancaria consultarConta(int numeroConta) {
-		for (int i = 0; i < this.contas.length; i++) {
-			if(this.contas[i] != null && this.contas[i].getNumeroConta() == numeroConta){
-				return this.contas[i];
-			}
+		
+		for (ContaBancaria contaBancaria : contas) {
+			if(contaBancaria.getNumeroConta() == numeroConta)
+				return contaBancaria;
 		}
 		
 		return null;
+	}
+	
+	public static Agencia[] criarAgencias(){
+		Agencia[] agencias = new Agencia[5];
+		Agencia agenciaCentro = new Agencia();
+		agenciaCentro.setNumero("001");
+
+		Agencia agenciaBenfica = new Agencia();
+		agenciaBenfica.setNumero("002");
+		
+		agencias[0] = agenciaCentro;
+		agencias[1] = agenciaBenfica;
+		
+		return agencias;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 }

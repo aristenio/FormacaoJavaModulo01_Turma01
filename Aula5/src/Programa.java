@@ -14,7 +14,7 @@ public class Programa {
 	private static void menuInicial() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("----------------------------------");
-		System.out.println("-- Bem vindo ao Banco "+bancoSelecionado.nome+" ---");
+		System.out.println("-- Bem vindo ao Banco "+bancoSelecionado.getNome()+" ---");
 		System.out.println("Você deseja:");
 		System.out.println("1 - Cadastrar uma nova conta:");
 		System.out.println("2 - Acessar sua conta:");
@@ -25,17 +25,16 @@ public class Programa {
 		switch (opcao) {
 		case 1:
 			cadastrarConta();
-			menuInicial();
 			break;
 		case 2:
 			acessarConta();
-			menuInicial();
 			break;
 		case 3:
 			System.exit(0);
 		default:
-			menuInicial();
 		}
+		
+		menuInicial();
 		
 	}
 
@@ -65,7 +64,7 @@ public class Programa {
 		menuContaBancaria();
 	}
 	
-	static void menuContaBancaria() {
+	private static void menuContaBancaria() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("------Bem vindo "+contaSelecionada.getCliente().getNome()+" ----");
 		System.out.println("------------------------------------------------------");
@@ -94,20 +93,19 @@ public class Programa {
 			menuInicial();
 			return;
 		default:
-			menuContaBancaria();
 		}
 
 		menuContaBancaria();
 	}
 
-	static void consultarSaldo() {
+	private static void consultarSaldo() {
 		System.out.println("------Opção Saldo selecionada:-----");
 		System.out.println("------Seu saldo atual é de:-----");
 		System.out.println("------R$ "+contaSelecionada.saldo+" reais-----");
 		
 	}
 
-	static void efetuarDeposito() {
+	private static void efetuarDeposito() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("------Opção Desposito selecionada:-----");
 		System.out.println("------Digite o valor do deposito:-----");
@@ -116,7 +114,7 @@ public class Programa {
 		System.out.println("Deposito de R$ "+valor+" reais efetuado com sucesso.");
 	}
 
-	static void efetuarSaque() {
+	private static void efetuarSaque() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("------Opção Saque selecionada:-----");
 		System.out.println("------Digite o valor do saque:-----");
@@ -128,7 +126,7 @@ public class Programa {
 			System.out.println("Saque de R$ "+valor+" reais não realizado. Saldo insuficiente!");
 	}
 
-	static void efetuarTransferencia() {
+	private static void efetuarTransferencia() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("------Opção Transferencia selecionada:-----");
 		System.out.println("------Digite a agencia para transferencia:-----");
@@ -159,7 +157,7 @@ public class Programa {
 		
 	}
 
-	static void cadastrarConta() {
+	private static void cadastrarConta() {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("Nome:");
@@ -181,7 +179,7 @@ public class Programa {
 		Endereco endereco = new Endereco(tipo,logradouro,numero,complemento);
 		Cliente cliente = new Cliente(nome,sobrenome,cpf, endereco);
 		
-		Agencia agencia = bancoSelecionado.agencias[0];
+		Agencia agencia = bancoSelecionado.consultarAgencia("001");
 		agenciaSelecionada = agencia;
 
 		int numeroConta = (int)(Math.random() * 10000);
@@ -189,8 +187,8 @@ public class Programa {
 		ContaBancaria novaConta = new ContaBancaria(numeroConta,cliente);
 		agencia.adicionarConta(novaConta);
 		
-		System.out.println("Cliente "+novaConta.getCliente().getNome()+" "+novaConta.getCliente().getSobrenome()+" seja bem vindo ao "+bancoSelecionado.nome);
-		System.out.println("Sua agência é a "+agencia.numero);
+		System.out.println("Cliente "+novaConta.getCliente().getNome()+" "+novaConta.getCliente().getSobrenome()+" seja bem vindo ao "+bancoSelecionado.getNome());
+		System.out.println("Sua agência é a "+agencia.getNumero());
 		System.out.println("Sua conta é a "+novaConta.getNumeroConta());
 		
 		contaSelecionada = novaConta;
