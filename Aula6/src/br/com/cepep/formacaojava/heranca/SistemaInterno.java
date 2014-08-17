@@ -1,7 +1,5 @@
 package br.com.cepep.formacaojava.heranca;
 
-import br.com.cepep.formacaojava.sistemabancario.model.Cliente;
-
 public class SistemaInterno {
 	
 	static void login(Autenticavel a){

@@ -1,6 +1,8 @@
 package br.com.cepep.formacaojava.sistemabancario;
 import java.util.Scanner;
 
+import br.com.cepep.formacaojava.sistemabancario.exception.AgenciaNaoEncontradaException;
+import br.com.cepep.formacaojava.sistemabancario.exception.ContaBancariaNaoEncontradaException;
 import br.com.cepep.formacaojava.sistemabancario.exception.SaldoInsuficienteException;
 import br.com.cepep.formacaojava.sistemabancario.model.Agencia;
 import br.com.cepep.formacaojava.sistemabancario.model.Banco;
@@ -22,7 +24,7 @@ public class Programa {
 	public static ContaBancaria contaSelecionada;
 	
 	/**
-	 * M�todo que inicia o sistema
+	 * M�todo que inicia o sistema
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -59,23 +61,20 @@ public class Programa {
 	private static void acessarConta() {
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("-- Digite sua agencia: -----------");
-		String agencia = scanner.nextLine();
-		
-		agenciaSelecionada = bancoSelecionado.consultarAgencia(agencia);
-		
-		if(agenciaSelecionada == null){
-			System.out.println("Agencia nao encontrada");
-			menuInicial();
-		}
-				
-		System.out.println("-- Digite numero da conta: ---");
-		int numeroConta = scanner.nextInt();
-		
-		contaSelecionada = agenciaSelecionada.consultarConta(numeroConta);
+		try {
+			System.out.println("-- Digite sua agencia: -----------");
+			String agencia = scanner.nextLine();
+			agenciaSelecionada = bancoSelecionado.consultarAgencia(agencia);
 
-		if(contaSelecionada == null){
-			System.out.println("Conta nao encontrada");
+			System.out.println("-- Digite numero da conta: ---");
+			int numeroConta = scanner.nextInt();
+			contaSelecionada = agenciaSelecionada.consultarConta(numeroConta);
+
+		} catch (AgenciaNaoEncontradaException anex) {
+			System.err.println(anex.getMessage());
+			menuInicial();
+		} catch (ContaBancariaNaoEncontradaException cbnex){
+			System.err.println(cbnex.getMessage());
 			menuInicial();
 		}
 		
@@ -144,41 +143,38 @@ public class Programa {
 		} catch (Exception e) {
 			System.out.println("Saque de R$ "+valor+" reais não realizado."+e.getMessage());
 		}
-
 	}
 
 	private static void efetuarTransferencia() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("------Opção Transferencia selecionada:-----");
-		System.out.println("------Digite a agencia para transferencia:-----");
-		String agencia = scanner.nextLine();
-		Agencia agenciaTranferencia = bancoSelecionado.consultarAgencia(agencia);
-		
-		if(agenciaSelecionada == null){
-			System.out.println("--Agencia não encontrada--");
-			return;
-		}
-
-		System.out.println("------Digite a agencia para transferencia:-----");
-		int numeroContaTransferencia = scanner.nextInt();
-		ContaBancaria contaTranferencia = agenciaTranferencia.consultarConta(numeroContaTransferencia);
-		
-		if(contaTranferencia == null){
-			System.out.println("--Conta não encontrada--");
-			return;
-		}
-		
-		System.out.println("------Digite o valor da tranferencia:-----");
-		int valor = scanner.nextInt();
 
 		try {
+			System.out.println("------Digite a agencia para transferencia:-----");
+			String agencia = scanner.nextLine();
+			Agencia agenciaTranferencia = bancoSelecionado.consultarAgencia(agencia);
+
+			System.out.println("------Digite a agencia para transferencia:-----");
+			int numeroContaTransferencia = scanner.nextInt();
+			ContaBancaria contaTranferencia = agenciaTranferencia.consultarConta(numeroContaTransferencia);
+			
+			System.out.println("------Digite o valor da tranferencia:-----");
+			int valor = scanner.nextInt();
 			contaSelecionada.transfere(contaTranferencia, valor);
+
 			System.out.println("Transferencia efetuada com sucesso!");
+		} catch (AgenciaNaoEncontradaException aneex) {
+			System.out.println("--Agencia não encontrada--");
+			return;
+		}catch (ContaBancariaNaoEncontradaException cbneex) {
+			System.out.println("--Conta não encontrada--");
+			return;
 		} catch (SaldoInsuficienteException e) {
 			System.out.println("Não foi possível efetuar a transferencia"+e.getMessage());
 		}finally{
 			System.out.println("Obrigado");
 		}
+		
 	}
 
 	private static void cadastrarConta() {
@@ -203,16 +199,19 @@ public class Programa {
 		Endereco endereco = new Endereco(tipo,logradouro,numero,complemento);
 		Cliente cliente = new Cliente(nome,sobrenome,cpf, endereco);
 		
-		Agencia agencia = bancoSelecionado.consultarAgencia("001");
-		agenciaSelecionada = agencia;
+		try {
+			agenciaSelecionada = bancoSelecionado.consultarAgencia("001");
+		} catch (AgenciaNaoEncontradaException aneex) {
+			System.err.println(aneex.getMessage());
+		}
 
 		int numeroConta = (int)(Math.random() * 10000);
 		
 		ContaBancaria novaConta = new ContaBancaria(numeroConta,cliente);
-		agencia.adicionarConta(novaConta);
+		agenciaSelecionada.adicionarConta(novaConta);
 		
 		System.out.println("Cliente "+novaConta.getCliente().getNome()+" "+novaConta.getCliente().getSobrenome()+" seja bem vindo ao "+bancoSelecionado.getNome());
-		System.out.println("Sua agência é a "+agencia.getNumero());
+		System.out.println("Sua agência é a "+agenciaSelecionada.getNumero());
 		System.out.println("Sua conta é a "+novaConta.getNumeroConta());
 		
 		contaSelecionada = novaConta;

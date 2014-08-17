@@ -1,4 +1,4 @@
-package br.com.cepep.formacaojava.sistemabancario;
+package br.com.cepep.formacaojava.sistemabancario.util;
 
 public class Validacoes {
 	

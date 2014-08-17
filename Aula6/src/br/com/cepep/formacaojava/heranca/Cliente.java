@@ -1,9 +1,9 @@
-package br.com.cepep.formacaojava.sistemabancario.model;
+package br.com.cepep.formacaojava.heranca;
 
 import br.com.cepep.formacaojava.heranca.Autenticavel;
 import br.com.cepep.formacaojava.sistemabancario.util.Validacoes;
 
-public class Cliente{
+public class Cliente implements Autenticavel{
 	
 	public static int contador;
 //	private static int contador; //static tb pode ser private, mas s� ser� visivel dentro dos objetos
@@ -11,13 +11,11 @@ public class Cliente{
 	private String nome;
 	private String sobrenome;
 	private String cpf;
-	private Endereco endereco;
 	
-	public Cliente(String nome, String sobrenome, String cpf, Endereco endereco) {
+	public Cliente(String nome, String sobrenome, String cpf) {
 		setNome(nome);
 		this.sobrenome = sobrenome;
 		setCpf(cpf);
-		this.endereco = endereco;
 		if(contador>30)
 			enviaEmail();
 	}
@@ -60,12 +58,15 @@ public class Cliente{
 		return Validacoes.validaCPF(cpf);
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
+	@Override
+	public boolean autentica(int senha) {
+		if (senha == 123)
+			return true;
+		else
+			return false;
 	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
+	
+	
+	
+	
 }
