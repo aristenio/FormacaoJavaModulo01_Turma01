@@ -45,7 +45,7 @@ public class Agencia {
 	public ContaBancaria consultarConta(int numeroConta) throws ContaBancariaNaoEncontradaException{
 		
 		for (ContaBancaria contaBancaria : contas) {
-			if(contaBancaria.getNumeroConta() == numeroConta)
+			if(contaBancaria != null && contaBancaria.getNumeroConta() == numeroConta)
 				return contaBancaria;
 		}
 		

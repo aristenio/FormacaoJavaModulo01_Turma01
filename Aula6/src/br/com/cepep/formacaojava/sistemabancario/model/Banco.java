@@ -33,7 +33,7 @@ public class Banco {
 	public Agencia consultarAgencia(String agencia) throws AgenciaNaoEncontradaException{
 		
 		for (Agencia agenciaTmp : agencias) {
-			if(agenciaTmp.getNumero().equals(agencia))
+			if(agenciaTmp !=null && agenciaTmp.getNumero().equals(agencia))
 				return agenciaTmp;
 		}
 		
