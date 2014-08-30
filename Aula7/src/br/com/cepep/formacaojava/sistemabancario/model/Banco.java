@@ -1,6 +1,7 @@
 package br.com.cepep.formacaojava.sistemabancario.model;
 
 import br.com.cepep.formacaojava.sistemabancario.exception.AgenciaNaoEncontradaException;
+import br.com.cepep.formacaojava.sistemabancario.util.Repositorio;
 
 
 /**
@@ -12,7 +13,7 @@ import br.com.cepep.formacaojava.sistemabancario.exception.AgenciaNaoEncontradaE
 public class Banco {
 	
 	private String nome;
-	private Agencia[] agencias = new Agencia[5];
+	private Repositorio repositorio = new Repositorio(5);
 	
 	/**
 	 * Construtor da entidade Banco, possui o parâmetro @String nome para obrigar que esta entidade sempre seja instaciada 
@@ -21,7 +22,10 @@ public class Banco {
 	 */
 	public Banco(String nome) {
 		this.nome = nome;
-		this.agencias = Agencia.criarAgencias();
+		Agencia[] criarAgencias = Agencia.criarAgencias();
+		for (Agencia agencia : criarAgencias) {
+			repositorio.adicionaObjeto(agencia);
+		}
 	}
 
 	/**
@@ -32,9 +36,9 @@ public class Banco {
 	 */
 	public Agencia consultarAgencia(String agencia) throws AgenciaNaoEncontradaException{
 		
-		for (Agencia agenciaTmp : agencias) {
-			if(agenciaTmp !=null && agenciaTmp.getNumero().equals(agencia))
-				return agenciaTmp;
+		for (Object agenciaTmp : repositorio.retornarTodos()) {
+			if(agenciaTmp !=null && ((Agencia)agenciaTmp).getNumero().equals(agencia))
+				return (Agencia)agenciaTmp;
 		}
 		
 		throw new AgenciaNaoEncontradaException("Nenhuma agencia foi encontrada com o numero "+agencia+" no Banco "+this.nome);
@@ -44,5 +48,12 @@ public class Banco {
 	public String getNome() {
 		return nome;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getNome();
+	}
+	
 	
 }

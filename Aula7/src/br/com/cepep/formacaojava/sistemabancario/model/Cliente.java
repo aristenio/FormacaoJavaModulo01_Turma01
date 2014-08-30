@@ -67,4 +67,12 @@ public class Cliente{
 		this.endereco = endereco;
 	}
 
+	@Override
+	public String toString() {
+		return "Cliente [nome=" + nome + ", sobrenome=" + sobrenome + ", cpf="
+				+ cpf + "]";
+	}
+	
+	
+
 }

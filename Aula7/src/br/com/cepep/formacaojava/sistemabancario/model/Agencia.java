@@ -2,6 +2,7 @@ package br.com.cepep.formacaojava.sistemabancario.model;
 
 import br.com.cepep.formacaojava.sistemabancario.exception.AgenciaNaoEncontradaException;
 import br.com.cepep.formacaojava.sistemabancario.exception.ContaBancariaNaoEncontradaException;
+import br.com.cepep.formacaojava.sistemabancario.util.Repositorio;
 
 /**
  * Classe que define a entidade agencia
@@ -12,7 +13,7 @@ import br.com.cepep.formacaojava.sistemabancario.exception.ContaBancariaNaoEncon
 public class Agencia {
 	
 	private String numero;
-	private ContaBancaria[] contas = new ContaBancaria[20];
+	private Repositorio repositorio = new Repositorio(20,"D://Aristenio/dados/contasbancarias.cepep");
 	
 	/**
 	 * Construtor da entidade Agencia, possui o parâmetro @String numero para obrigar que esta entidade sempre seja instaciada 
@@ -28,12 +29,7 @@ public class Agencia {
 	 * @param contaBancaria Conta bancaria a ser inserida no array
 	 */
 	public void adicionarConta(ContaBancaria contaBancaria){
-		for (int i = 0; i < contas.length; i++) {
-			if(contas[i] == null){
-				contas[i] = contaBancaria;
-				break;
-			}
-		}
+		repositorio.adicionaObjeto(contaBancaria);
 	}
 
 	/**
@@ -44,9 +40,9 @@ public class Agencia {
 	 */
 	public ContaBancaria consultarConta(int numeroConta) throws ContaBancariaNaoEncontradaException{
 		
-		for (ContaBancaria contaBancaria : contas) {
-			if(contaBancaria != null && contaBancaria.getNumeroConta() == numeroConta)
-				return contaBancaria;
+		for (Object contaBancaria :  repositorio.retornarTodos() ) {
+			if(contaBancaria != null && ((ContaBancaria)contaBancaria).getNumeroConta() == numeroConta)
+				return (ContaBancaria)contaBancaria;
 		}
 		
 		throw new ContaBancariaNaoEncontradaException("Conta bancaria numero: "+numeroConta+" não foi encontrada na agencia "+this.numero);
