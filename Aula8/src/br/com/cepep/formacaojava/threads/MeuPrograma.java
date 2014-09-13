@@ -1,7 +1,7 @@
 package br.com.cepep.formacaojava.threads;
 
 public class MeuPrograma {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		GeraPDF geraPDF = new GeraPDF();
 		BarraProgresso progresso = new BarraProgresso();
 		
