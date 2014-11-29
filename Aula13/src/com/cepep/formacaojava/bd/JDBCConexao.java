@@ -8,9 +8,10 @@ public class JDBCConexao {
 	
 	public static void main(String[] args) {
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/escola?user=root&password=root2");
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/loja?user=root&password=root");
 			System.out.println("Connected");
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("Not connect. "+e.getMessage());
 		}
 	}

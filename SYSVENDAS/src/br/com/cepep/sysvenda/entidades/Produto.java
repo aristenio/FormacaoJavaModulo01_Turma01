@@ -1,5 +1,7 @@
 package br.com.cepep.sysvenda.entidades;
 
+import java.util.Date;
+
 public class Produto {
 	
 	private Long id;
@@ -11,6 +13,7 @@ public class Produto {
 	private String descricaoGrande;
 	private String imagem;
 	private int quantidadeEstoque;
+	private Date dataCadastro = new Date();
 
 	public Long getId() {
 		return id;
@@ -65,6 +68,12 @@ public class Produto {
 	}
 	public void setQuantidadeEstoque(int quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
+	}
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 	
 }

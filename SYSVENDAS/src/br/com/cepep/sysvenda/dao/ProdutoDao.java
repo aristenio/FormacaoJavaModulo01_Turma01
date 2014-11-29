@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.cepep.sysvenda.conexao.ConnectionFactory;
 import br.com.cepep.sysvenda.entidades.Produto;
@@ -15,6 +17,14 @@ public class ProdutoDao {
 	public ProdutoDao() {
 		try {
 			connection = ConnectionFactory.getConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void destroy(){
+		try {
+			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -96,6 +106,42 @@ public class ProdutoDao {
 			e.printStackTrace();
 			throw e;
 		}
+	}
+	
+	public List<Produto> listarProdutos() throws SQLException{
+		List<Produto> retorno = new ArrayList<>();
+		
+		String sql = "SELECT * FROM PRODUTOS";
+		
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			ResultSet resultSet = stmt.executeQuery();
+			
+			while (resultSet.next()) {
+				Produto produto = new Produto();
+				produto.setId(resultSet.getLong("id"));
+				produto.setNome(resultSet.getString("nome"));
+				produto.setPreco(resultSet.getDouble("preco"));
+				produto.setPrecoDesconto(resultSet.getDouble("preco_desc"));
+				produto.setDesconto(resultSet.getFloat("desconto"));
+				produto.setDescricaoPequena(resultSet.getString("desc_pqna"));
+				produto.setDescricaoGrande(resultSet.getString("desc_gnd"));
+				produto.setImagem(resultSet.getString("imagem"));
+				produto.setQuantidadeEstoque(resultSet.getInt("qtd_estoque"));
+				
+				retorno.add(produto);
+			}
+			
+			return retorno;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public List<Produto> getLista() throws SQLException{
+		return this.listarProdutos();
 	}
 
 }
