@@ -17,7 +17,7 @@ public class TesteProdutoDAO {
 	
 	@Before
 	public void init(){
-		dao = new ProdutoDao();
+//		dao = new ProdutoDao();
 	}
 	
 	@Test

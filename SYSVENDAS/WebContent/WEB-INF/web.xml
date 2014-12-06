@@ -9,7 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
+  <!-- servlet>
     <servlet-name>principal</servlet-name>
     <servlet-class>br.com.cepep.sysvenda.servlets.Principal</servlet-class>
   </servlet>
@@ -33,6 +33,37 @@
     <servlet-name>produtos</servlet-name>
     <url-pattern>/produtos</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+  	<servlet-name>controller</servlet-name>
+  	<servlet-class>br.com.cepep.sysvenda.servlets.ControllerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>controller</servlet-name>
+  	<url-pattern>/mvc</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+  	<filter-name>cronometro</filter-name>
+  	<filter-class>br.com.cepep.sysvenda.filters.FiltroTempoExecucao</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>cronometro</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+  	<filter-name>filtroConexao</filter-name>
+  	<filter-class>br.com.cepep.sysvenda.filters.FiltroConexao</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>filtroConexao</filter-name>
+  	<url-pattern>/mvc</url-pattern>
+  </filter-mapping-->
+  
   <error-page>
     <exception-type>java.lang.Exception</exception-type>
     <location>/erro.html</location>
@@ -41,4 +72,20 @@
     <error-code>404</error-code>
     <location>/erro404.html</location>
   </error-page>
+  
+  <!-- Spring -->
+  <servlet>
+  	<servlet-name>Spring</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<init-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring-context.xml</param-value>
+	</init-param>
+  </servlet>
+
+  <servlet-mapping>
+  	<servlet-name>Spring</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

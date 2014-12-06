@@ -11,7 +11,8 @@
 <title>Cadastro de produtos</title>
 </head>
 <body>
-	<form action="produtos" method="post">
+	<form action="mvc" method="post">
+		<input type="hidden" name="logica" value="AdicionaProdutos">
 		Nome:<input type="text" name="nome">
 		<br>
 		Descrição: <input type="text" name="descricao">

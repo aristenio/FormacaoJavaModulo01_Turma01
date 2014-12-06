@@ -7,29 +7,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cepep.sysvenda.conexao.ConnectionFactory;
 import br.com.cepep.sysvenda.entidades.Produto;
 
 public class ProdutoDao {
 	
 	private Connection connection;
 	
-	public ProdutoDao() {
-		try {
-			connection = ConnectionFactory.getConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public ProdutoDao(Connection connection) {
+		this.connection = connection; 
 	}
-	
-	public void destroy(){
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
+
 	public Produto inserir(Produto produto) throws SQLException{
 		String sql = "INSERT PRODUTOS (NOME,PRECO,PRECO_DESC,DESCONTO,DESC_PQNA,"
 				+ "DESC_GND,IMAGEM) VALUES (?,?,?,?,?,?,?)";

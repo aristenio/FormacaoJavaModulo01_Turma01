@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,15 +22,15 @@ public class ProdutosServlet extends HttpServlet {
        
     private ProdutoDao produtoDao;
     
-	@Override
-	public void init() throws ServletException {
-		produtoDao = new ProdutoDao();
-	}
-	
-	@Override
-	public void destroy() {
-		produtoDao.destroy();
-	}
+//	@Override
+//	public void init() throws ServletException {
+//		produtoDao = new ProdutoDao();
+//	}
+//	
+//	@Override
+//	public void destroy() {
+//		produtoDao.destroy();
+//	}
 
 	/**
      * @see HttpServlet#HttpServlet()
@@ -92,15 +93,18 @@ public class ProdutosServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		PrintWriter out = response.getWriter();
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title>Cadastro de produtos</title>");
-		out.println("</head>");
-		out.println("<body>");
-		out.print("Produto inserido com sucesso.");
-		out.println("</body>");
-		out.println("</html>");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/produtoInseridoSucesso.jsp");
+		requestDispatcher.forward(request, response);
+		
+//		PrintWriter out = response.getWriter();
+//		out.println("<html>");
+//		out.println("<head>");
+//		out.println("<title>Cadastro de produtos</title>");
+//		out.println("</head>");
+//		out.println("<body>");
+//		out.print("Produto inserido com sucesso.");
+//		out.println("</body>");
+//		out.println("</html>");
 		
 		
 	}
