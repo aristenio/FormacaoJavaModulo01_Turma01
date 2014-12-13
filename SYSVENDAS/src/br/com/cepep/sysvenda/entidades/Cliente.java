@@ -22,6 +22,8 @@ public class Cliente {
 	private String estado;
 	
 	private String cep;
+	
+	private Boolean ativo;
 
 	public Long getId() {
 		return id;
@@ -86,6 +88,13 @@ public class Cliente {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 	
 }

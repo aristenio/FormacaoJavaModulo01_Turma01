@@ -13,5 +13,6 @@
 	<img alt="LOGO" src="imagens/logo.jpg">
 	SYSVENDAS  - Cepep Formação Java I
 	<hr/>
+	<a href="logout">Sair</a>
 </body>
 </html>

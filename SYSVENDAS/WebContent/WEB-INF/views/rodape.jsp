@@ -5,13 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<script type="text/javascript" src="resources/jquery-ui-1.11.2/external/jquery/jquery.js"></script>
-<script type="text/javascript" src="resources/jquery-ui-1.11.2/jquery-ui.min.js"></script>
- <link rel="stylesheet" href="resources/jquery-ui-1.11.2/jquery-ui.min.css">
 </head>
 <body>
-	<img alt="LOGO" src="imagens/logo.jpg">
-	SYSVENDAS  - Cepep Formação Java I
 	<hr/>
+	Copyright 2014 - Todos os direitos não são reservados.
 </body>
 </html>

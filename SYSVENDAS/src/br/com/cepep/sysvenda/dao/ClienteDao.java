@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.cepep.sysvenda.entidades.Cliente;
-import br.com.cepep.sysvenda.entidades.Produto;
 
 public class ClienteDao {
 	
@@ -20,7 +19,7 @@ public class ClienteDao {
 	
 	public Cliente inserir(Cliente cliente) throws SQLException{
 		String sql = "INSERT CLIENTES (NOME,EMAIL,ENDERECO,BAIRRO,CIDADE,"
-				+ "ESTADO,CEP) VALUES (?,?,?,?,?,?,?)";
+				+ "ESTADO,CEP,ATIVO) VALUES (?,?,?,?,?,?,?,?)";
 		
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -31,6 +30,7 @@ public class ClienteDao {
 			stmt.setString(5, cliente.getCidade());
 			stmt.setString(6, cliente.getEstado());
 			stmt.setString(7, cliente.getCep());
+			stmt.setBoolean(8, cliente.getAtivo());
 			
 			stmt.execute();
 			stmt.close();
@@ -56,17 +56,81 @@ public class ClienteDao {
 				Cliente cliente = new Cliente();
 				cliente.setId(resultSet.getLong("id"));
 				cliente.setNome(resultSet.getString("nome"));
-				cliente.setEmail(resultSet.getString("preco"));
-				cliente.setEndereco(resultSet.getString("preco"));
-				cliente.setBairro((resultSet.getString("preco_desc"));
-				cliente.setCidade(resultSet.getString("desconto"));
-				cliente.setEstado(resultSet.getString("desc_pqna"));
-				cliente.setCep(resultSet.getString("desc_gnd"));
-				
+				cliente.setEmail(resultSet.getString("email"));
+				cliente.setEndereco(resultSet.getString("endereco"));
+				cliente.setBairro(resultSet.getString("bairro"));
+				cliente.setCidade(resultSet.getString("cidade"));
+				cliente.setEstado(resultSet.getString("estado"));
+				cliente.setCep(resultSet.getString("cep"));
+				cliente.setAtivo(resultSet.getBoolean("ativo"));
 				retorno.add(cliente);
 			}
 			
 			return retorno;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	public void removerCliente(Long id) throws SQLException {
+		String sql = "DELETE FROM CLIENTES WHERE ID=?";
+		
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, id);
+			
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public void atualizaStatusCliente(Long id, boolean ativo) throws SQLException{
+		String sql = "UPDATE CLIENTES SET ATIVO=? WHERE ID=?";
+		
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setBoolean(1, ativo);
+			stmt.setLong(2, id);
+			
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	public Cliente consultarCliente(Long id) throws SQLException {
+		
+		String sql = "SELECT * FROM CLIENTES WHERE ID=?";
+		
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, id);
+			ResultSet resultSet = stmt.executeQuery();
+			
+			Cliente cliente = new Cliente();
+			while (resultSet.next()) {
+				cliente.setId(resultSet.getLong("id"));
+				cliente.setNome(resultSet.getString("nome"));
+				cliente.setEmail(resultSet.getString("email"));
+				cliente.setEndereco(resultSet.getString("endereco"));
+				cliente.setBairro(resultSet.getString("bairro"));
+				cliente.setCidade(resultSet.getString("cidade"));
+				cliente.setEstado(resultSet.getString("estado"));
+				cliente.setCep(resultSet.getString("cep"));
+				cliente.setAtivo(resultSet.getBoolean("ativo"));
+			}
+			
+			return cliente;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
