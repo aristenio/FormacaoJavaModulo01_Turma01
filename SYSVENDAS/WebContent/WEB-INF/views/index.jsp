@@ -7,12 +7,14 @@
 <title>SYSVENDAS</title>
 </head>
 <body>
-	<form action="login">
-		Usuário:
-		<input id="nome" type="text"><br>
+	<form action="login" method="POST">
+		Login:
+		<input id="login" name="login" type="text">
+		<br>
 		Senha:
-		<input id="senha" type="text"><br>
-		<input type="submit">
+		<input id="senha" name="senha" type="password">
+		<br>
+		<input type="submit" name="Login">
 	</form>
 
 </body>

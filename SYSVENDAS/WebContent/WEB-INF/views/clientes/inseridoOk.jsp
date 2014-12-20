@@ -9,5 +9,6 @@
 </head>
 <body>
 <fmt:message key="cliente.inserido.sucesso"/>
+<a href="listarClientes">voltar</a>
 </body>
 </html>

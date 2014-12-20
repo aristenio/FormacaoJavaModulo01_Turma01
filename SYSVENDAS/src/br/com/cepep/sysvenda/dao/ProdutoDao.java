@@ -7,14 +7,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import br.com.cepep.sysvenda.entidades.Produto;
 
+@Repository
 public class ProdutoDao {
 	
 	private Connection connection;
 	
-	public ProdutoDao(Connection connection) {
-		this.connection = connection; 
+	@Autowired
+	public ProdutoDao(DataSource dataSource) {
+		try {
+			this.connection = dataSource.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
 	}
 
 	public Produto inserir(Produto produto) throws SQLException{

@@ -1,41 +1,44 @@
 package br.com.cepep.sysvenda.servlets;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.cepep.sysvenda.conexao.ConnectionFactory;
 import br.com.cepep.sysvenda.dao.ClienteDao;
 import br.com.cepep.sysvenda.entidades.Cliente;
 
 @Controller
 public class ClienteController {
 	
-	private Connection connection;
-	private ClienteDao clienteDao = new ClienteDao(connection);
+	@Autowired
+	private ClienteDao clienteDao;
 	
-	public ClienteController(){
-		try {
-			connection = ConnectionFactory.getConnection();
-			clienteDao = new ClienteDao(connection);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	@RequestMapping("cadastrarCliente")
 	public String cadastrarCliente(){
 		return "clientes/cadastrar";
+	}
+	
+	@RequestMapping("editarCliente")
+	public String editarCliente(Long id, Model model){
+		
+		try {
+			Cliente cliente = clienteDao.consultarCliente(id);
+			model.addAttribute("cliente", cliente);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "clientes/editar";
 	}
 
 	@RequestMapping("inserirCliente")
@@ -53,8 +56,19 @@ public class ClienteController {
 		return "clientes/inseridoOk";
 	}
 	
+	@RequestMapping("atualizarCliente")
+	public String atualizarCliente(Cliente cliente){
+		try {
+			clienteDao.atualizarCliente(cliente);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "forward:listarClientes";
+	}
+	
 	@RequestMapping("listarClientes")
-	public String listarClientes(Model model, HttpSession sessao){
+	public String listarClientes(Model model){
 		
 		try {
 			List<Cliente> listarClientes = clienteDao.listarClientes();

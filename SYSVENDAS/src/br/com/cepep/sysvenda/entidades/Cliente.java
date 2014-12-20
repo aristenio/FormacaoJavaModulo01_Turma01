@@ -23,7 +23,7 @@ public class Cliente {
 	
 	private String cep;
 	
-	private Boolean ativo;
+	private boolean ativo;
 
 	public Long getId() {
 		return id;
@@ -89,11 +89,11 @@ public class Cliente {
 		this.cep = cep;
 	}
 
-	public Boolean getAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(Boolean ativo) {
+	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
 	

@@ -19,8 +19,10 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter{
 		
 		HttpSession sessao = request.getSession();
 		
-		if (sessao.getAttribute("usuario") != null)
+		if (sessao.getAttribute("usuario") != null){
+			request.setAttribute("usuario", sessao.getAttribute("usuario"));
 			return true;
+		}
 		
 		response.sendRedirect("index");
 		

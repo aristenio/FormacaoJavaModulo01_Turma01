@@ -9,30 +9,30 @@
 <c:import url="../cabecalho.jsp"/>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Cadastro de cliente</title>
+<title>Edição de cliente</title>
 </head>
 <body>
-	<form:errors path="cliente.nome" cssStyle="color:red"/>
-	<form action="inserirCliente" method="post">
-		Nome:<input type="text" name="nome">
+	<form action="atualizarCliente" method="post">
+		<input type="hidden" name="id" value="${cliente.id}">
+		Nome:<input type="text" name="nome" value="${cliente.nome}">
 		<br>
-		Email: <input type="text" name="email">
+		Email: <input type="text" name="email" value="${cliente.email}">
 		<br>
-		Endereço: <input type="text" name="endereco">
+		Endereço: <input type="text" name="endereco" value="${cliente.endereco}">
 		<br>
-		Bairro: <input type="text" name="bairro">
+		Bairro: <input type="text" name="bairro" value="${cliente.bairro}">
 		<br>
-		Cidade: <input type="text" name="cidade">
+		Cidade: <input type="text" name="cidade" value="${cliente.cidade}">
 		<br>
-		Estado: <input type="text" name="estado">
+		Estado: <input type="text" name="estado" value="${cliente.estado}">
 		<br>
-		CEP: <input type="text" name="cep">
+		CEP: <input type="text" name="cep" value="${cliente.cep}">
 		<br>
 		Data nascimento: 
 		<cepep:campoData id="data"/>
 		<br>
-		Ativo: <input type="checkbox" name="ativo">
-		<input type="submit">
+		Ativo: <input type="checkbox" name="ativo" id="ativo" checked="${cliente.ativo eq true}">
+		<input type="submit" name="Atualizar">
 	</form>
 </body>
 <c:import url="../rodape.jsp"/>
