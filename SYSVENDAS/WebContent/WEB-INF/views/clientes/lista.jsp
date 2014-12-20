@@ -33,6 +33,7 @@
 		<th>Ativo</th>
 		<th></th>
 		<th></th>
+		<th></th>
 		<c:forEach items="${clientes}" var="cliente">
 			<tr>
 				<td>${cliente.id}</td>
@@ -51,10 +52,12 @@
 					<td><span id="status${cliente.id}">Inativo</span></td>
 					<td><a href="javascript:alterarStatus(${cliente.id},true);">ativar</a></td>
 				</c:if>
+				<td><a href="editarCliente?id=${cliente.id}">editar</a></td>
 				<td><a href="removerCliente?id=${cliente.id}">remover</a></td>
 			</tr>
 		</c:forEach>
 	</table>
+	<a href="cadastrarCliente">Cadastrar</a>
 </body>
 <c:import url="../rodape.jsp"/>
 </html>

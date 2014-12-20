@@ -3,6 +3,7 @@ package br.com.cepep.sysvenda.servlets;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.cepep.sysvenda.conexao.ConnectionFactory;
@@ -18,18 +19,20 @@ public class LoginController {
 	}
 	
 	@RequestMapping("login")
-	public String login(Usuario usuario, HttpSession sessao){
+	public String login(Usuario usuario, Model model, HttpSession sessao) throws Exception{
 		
 		try {
 			UsuarioDAO usuarioDao = new UsuarioDAO(ConnectionFactory.getConnection());
-			
-			if(usuarioDao.existeUsuario(usuario.getId())){
+			Usuario usuarioLogado = usuarioDao.existeUsuario(usuario.getLogin(), usuario.getSenha());
+			if(usuarioLogado != null ){
 				sessao.setAttribute("usuario", usuario);
-			}
+				model.addAttribute("usuario", usuario);
+			}else
+				return "index";
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		
 		return "menu";
