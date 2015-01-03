@@ -5,14 +5,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import br.com.cepep.sysvenda.entidades.Usuario;
 
+@Repository
 public class UsuarioDAO {
 	
 	private Connection connection;
 	
-	public UsuarioDAO(Connection connection){
-		this.connection = connection;
+	@Autowired
+	public UsuarioDAO(DataSource dataSource){
+		try {
+			this.connection = dataSource.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Usuario existeUsuario(String login, String senha){

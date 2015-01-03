@@ -57,7 +57,7 @@ public class TesteProdutoDAO {
 		
 		Produto produtoNovo = new Produto();
 		try {
-			produtoNovo = dao.consultarPorNome(produto.getNome());
+			produtoNovo = dao.consultarProduto(produto.getId());
 		} catch (SQLException e) {
 			fail("Falha no teste de consulta");
 		}
@@ -85,7 +85,7 @@ public class TesteProdutoDAO {
 		
 		Produto produtoAtualizar = new Produto();
 		try {
-			produtoAtualizar = dao.consultarPorNome(produto.getNome());
+			produtoAtualizar = dao.consultarProduto(produto.getId());
 		} catch (SQLException e) {
 			fail("Falha no teste de consulta");
 		}
@@ -93,14 +93,14 @@ public class TesteProdutoDAO {
 		produtoAtualizar.setPreco(12.50);
 		
 		try {
-			dao.atualizar(produtoAtualizar);
+			dao.atualizarProduto(produtoAtualizar);
 		} catch (SQLException e) {
 			fail("Falha no teste de consulta");
 		}
 		
 		Produto produtoAtualizado = new Produto();
 		try {
-			produtoAtualizado = dao.consultarPorNome(produto.getNome());
+			produtoAtualizado = dao.consultarProduto(produto.getId());
 		} catch (SQLException e) {
 			fail("Falha no teste de consulta");
 		}

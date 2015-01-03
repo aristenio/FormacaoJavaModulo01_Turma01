@@ -17,7 +17,7 @@ public class AdicionaProdutos implements Logica{
 	public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		Connection connection = (Connection) request.getAttribute("connection");
-		ProdutoDao produtoDao = new ProdutoDao(connection);
+//		ProdutoDao produtoDao = new ProdutoDao(connection);
 		
 		System.out.println("Entrou no método adicina");
 		
@@ -32,7 +32,7 @@ public class AdicionaProdutos implements Logica{
 		produto.setImagem(request.getParameter("imagem"));
 		
 		try {
-			produtoDao.inserir(produto);
+//			produtoDao.inserir(produto);
 			System.out.println("salvou o produto");
 			connection.close();
 		} catch (SQLException e) {
