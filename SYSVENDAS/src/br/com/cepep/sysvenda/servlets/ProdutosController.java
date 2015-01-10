@@ -41,7 +41,7 @@ public class ProdutosController {
 	}
 
 	@RequestMapping("inserirProdutos")
-	public String inserirProduto(@Validated Produto produto, BindingResult result){
+	public String inserirProduto(@Validated Produto produto){
 		
 		try {
 			produtoDao.inserir(produto);			

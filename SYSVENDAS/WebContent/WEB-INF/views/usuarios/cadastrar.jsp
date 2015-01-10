@@ -2,34 +2,26 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="cepep"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <c:import url="../cabecalho.jsp"/>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Lista de Produtos</title>
-
+<title>Cadastro de usuarios</title>
 </head>
 <body>
-	<table>
-		<th>ID</th>
-		<th>Nome</th>
-		<th>Login</th>
-		<th></th>
-		<th></th>
-		<th></th>
-		<c:forEach items="${usuarios}" var="usuario">
-			<tr>
-				<td>${usuario.id}</td>
-				<td>${usuario.nome}</td>
-				<td>${usuario.login}</td>
-				
-				<td><a href="editarUsuario?id=${usuario.id}">editar</a></td>
-				<td><a href="removerUsuario?id=${usuario.id}">remover</a></td>
-			</tr>
-		</c:forEach>
-	</table>
-	<a href="cadastrarUsuarios">Cadastrar</a>
+	<form:errors path="usuario.nome" cssStyle="color:red"/>
+	<form action="inserirUsuario" method="post">
+		Nome:<input type="text" name="nome">
+		<br>
+		Login: <input type="text" name="login">
+		<br>
+		Senha: <input type="text" name="senha">
+		<br>
+		<input type="submit">
+	</form>
 </body>
 <c:import url="../rodape.jsp"/>
 </html>
