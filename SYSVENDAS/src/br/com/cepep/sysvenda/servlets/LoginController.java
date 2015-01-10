@@ -46,5 +46,10 @@ public class LoginController {
 		
 		return "redirect:index";
 	}
+	
+	@RequestMapping("menu")
+	public String menu(){
+		return "menu";
+	}
 
 }

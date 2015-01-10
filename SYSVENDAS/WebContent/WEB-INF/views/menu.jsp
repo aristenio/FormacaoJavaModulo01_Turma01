@@ -20,7 +20,7 @@
 	<br>
 	<a href="cadastrarProdutos">Cadastrar produtos</a>
 	<br>
-	<a href="listarUsuario">Listar usuarios</a>
+	<a href="listarUsuarios">Listar usuarios</a>
 	<br>
 	<a href="cadastrarUsuarios">Cadastrar usuario</a>
 </body>

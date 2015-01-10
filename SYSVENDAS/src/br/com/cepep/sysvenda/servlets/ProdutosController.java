@@ -64,7 +64,7 @@ public class ProdutosController {
 	}
 	
 	@RequestMapping("listarProdutos")
-	public String listarProdutos(Model model, HttpSession sessao){
+	public String listarProdutos(Model model){
 		
 		try {
 			List<Produto> listarProdutos = produtoDao.listarProdutos();
