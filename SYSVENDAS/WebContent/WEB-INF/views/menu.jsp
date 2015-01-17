@@ -23,6 +23,8 @@
 	<a href="listarUsuarios">Listar usuarios</a>
 	<br>
 	<a href="cadastrarUsuarios">Cadastrar usuario</a>
+	<br>
+	<a href="pedido">Efetuar pedido</a>
 </body>
 <c:import url="rodape.jsp"/>
 </html>
