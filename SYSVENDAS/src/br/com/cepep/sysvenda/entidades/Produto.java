@@ -12,7 +12,7 @@ public class Produto {
 	private String descricaoPequena;
 	private String descricaoGrande;
 	private String imagem;
-	private int quantidadeEstoque;
+	private Integer quantidadeEstoque;
 	private Date dataCadastro = new Date();
 
 	public Long getId() {
@@ -63,10 +63,10 @@ public class Produto {
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
-	public int getQuantidadeEstoque() {
+	public Integer getQuantidadeEstoque() {
 		return quantidadeEstoque;
 	}
-	public void setQuantidadeEstoque(int quantidadeEstoque) {
+	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
 	}
 	public Date getDataCadastro() {

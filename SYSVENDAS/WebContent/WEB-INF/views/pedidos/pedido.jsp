@@ -86,7 +86,11 @@
 				</c:forEach>
 			</table>
 		</div>
-
+		<div class="grid_16">
+			<form action="efetuarPedido" method="post">	
+				<input type="submit" value="Efetuar_Pedido">
+			</form>
+		</div>
 	</div>
 </body>
 <c:import url="../rodape.jsp" />

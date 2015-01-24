@@ -2,17 +2,11 @@ package br.com.cepep.sysvenda.entidades;
 
 public class ItemPedido {
 	
-	private Long id;
+	private Long idPedido;
 	private Produto produto;
 	private Integer quantidade;
 	private Double preco;
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public Integer getQuantidade() {
 		return quantidade;
 	}
@@ -30,6 +24,12 @@ public class ItemPedido {
 	}
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+	public Long getIdPedido() {
+		return idPedido;
+	}
+	public void setIdPedido(Long idPedido) {
+		this.idPedido = idPedido;
 	}
 
 }

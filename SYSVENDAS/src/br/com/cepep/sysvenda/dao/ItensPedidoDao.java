@@ -30,12 +30,12 @@ public class ItensPedidoDao {
 		}
 	}
 	
-	public ItemPedido inserir(ItemPedido itemPedido, Long idPedido) throws SQLException{
+	public ItemPedido inserir(ItemPedido itemPedido) throws SQLException{
 		String sql = "INSERT INTO ITENS_PEDIDO (ID_PEDIDO,ID_PRODUTO,QTD,PRECO) VALUES (?,?,?,?)";
 		
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setLong(1, idPedido);
+			statement.setLong(1, itemPedido.getIdPedido());
 			statement.setLong(2, itemPedido.getProduto().getId());
 			statement.setInt(3, itemPedido.getQuantidade());
 			statement.setDouble(4, itemPedido.getPreco());
@@ -61,7 +61,7 @@ public class ItensPedidoDao {
 			ItemPedido itemPedidoRetorno = null;
 			while(resultSet.next()){
 				itemPedidoRetorno = new ItemPedido();
-				itemPedidoRetorno.setId(resultSet.getLong("ID"));
+				itemPedidoRetorno.setIdPedido(resultSet.getLong("ID_PEDIDO"));
 				itemPedidoRetorno.setPreco(resultSet.getDouble("PRECO"));
 				itemPedidoRetorno.setQuantidade(resultSet.getInt("QTD"));
 				

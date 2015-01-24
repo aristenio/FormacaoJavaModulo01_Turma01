@@ -13,7 +13,7 @@
 </head>
 <body>
 	<form:errors path="produtos.nome" cssStyle="color:red"/>
-	<form action="inserirProdutos" method="post">
+	<form action="inserirProduto" method="POST">
 		Nome:<input type="text" name="nome">
 		<br>
 		Preço: <input type="text" name="preco">

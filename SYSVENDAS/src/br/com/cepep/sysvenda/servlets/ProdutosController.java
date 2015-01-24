@@ -2,14 +2,9 @@ package br.com.cepep.sysvenda.servlets;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.cepep.sysvenda.dao.ProdutoDao;
@@ -40,8 +35,8 @@ public class ProdutosController {
 		return "produtos/editar";
 	}
 
-	@RequestMapping("inserirProdutos")
-	public String inserirProduto(@Validated Produto produto){
+	@RequestMapping("inserirProduto")
+	public String inserirProduto(Produto produto){
 		
 		try {
 			produtoDao.inserir(produto);			

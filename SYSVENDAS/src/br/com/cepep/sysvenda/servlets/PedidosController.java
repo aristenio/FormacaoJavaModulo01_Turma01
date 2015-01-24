@@ -1,6 +1,7 @@
 package br.com.cepep.sysvenda.servlets;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,11 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.cepep.sysvenda.dao.ClienteDao;
-import br.com.cepep.sysvenda.dao.ItensPedidoDao;
 import br.com.cepep.sysvenda.dao.PedidoDao;
 import br.com.cepep.sysvenda.dao.ProdutoDao;
 import br.com.cepep.sysvenda.entidades.Cliente;
 import br.com.cepep.sysvenda.entidades.ItemPedido;
+import br.com.cepep.sysvenda.entidades.Pedido;
 import br.com.cepep.sysvenda.entidades.Produto;
 
 @Controller
@@ -25,9 +26,6 @@ public class PedidosController {
 	
 	@Autowired
 	private ProdutoDao produtoDao;
-	
-	@Autowired
-	private ItensPedidoDao itensPedidoDao;
 	
 	@Autowired
 	private PedidoDao pedidoDao;
@@ -103,6 +101,34 @@ public class PedidosController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception();
+		}
+	}
+	
+	@RequestMapping("efetuarPedido")
+	public String efetuarPedido(HttpSession session) throws Exception{
+		
+		try {
+			Cliente cliente = (Cliente) session.getAttribute("clientePedido");
+			List<ItemPedido> intensPedido = (List<ItemPedido>) session.getAttribute("itensPedido");
+			
+			Double valorTotal = 0.0;
+			for (ItemPedido itemPedido : intensPedido) {
+				valorTotal += itemPedido.getPreco();
+			}
+			
+			Pedido pedido = new Pedido();
+			pedido.setCliente(cliente);
+			pedido.setData(new Date());
+			pedido.setIntensPedido(intensPedido);
+			pedido.setValorTotal(valorTotal);
+			
+			pedidoDao.inserir(pedido);
+			
+			return "pedidos/inseridoOk";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
