@@ -12,28 +12,74 @@
 <title>Cadastro de cliente</title>
 </head>
 <body>
-	<form:errors path="cliente.nome" cssStyle="color:red"/>
-	<form action="inserirCliente" method="post">
-		Nome:<input type="text" name="nome">
-		<br>
-		Email: <input type="text" name="email">
-		<br>
-		Endereço: <input type="text" name="endereco">
-		<br>
-		Bairro: <input type="text" name="bairro">
-		<br>
-		Cidade: <input type="text" name="cidade">
-		<br>
-		Estado: <input type="text" name="estado">
-		<br>
-		CEP: <input type="text" name="cep">
-		<br>
-		Data nascimento: 
-		<cepep:campoData id="data"/>
-		<br>
-		Ativo: <input type="checkbox" name="ativo">
-		<input type="submit">
-	</form>
+	<div id="content" class="container_16 clearfix">
+		<div class="grid_16">
+			<h2>Cadastrar cliente</h2>
+			<p class="error"><form:errors path="cliente.nome" cssStyle="color:red"/></p>
+		</div>
+		<form action="inserirCliente" method="post">
+			<div class="grid_10">
+				<p>
+					<label for="title">Nome <small>Deve conter caracteres alfanuméricos.</small></label>
+					<input type="text" name="nome">
+				</p>
+			</div>
+			<div class="grid_5">
+				<p>
+					<label for="title">Email <small>Deve conter caracteres alfanuméricos.</small></label>
+					<input type="text" name="email">
+				</p>
+			</div>
+			<div class="grid_14">
+				<p>
+					<label for="title">Endereço<small>Deve conter caracteres alfanuméricos.</small></label>
+					<input type="text" name="endereco">
+				</p>
+			</div>
+			<div class="grid_5">
+				<p>
+					<label for="title">Bairro</label>
+					<input type="text" name="bairro">
+				</p>
+			</div>
+			<div class="grid_5">
+				<p>
+					<label for="title">Cidade</label>
+					<input type="text" name="cidade">
+				</p>
+			</div>
+			<div class="grid_2">
+				<p>
+					<label for="title">Estado</label>
+					<input type="text" name="estado">
+				</p>
+			</div>
+			<div class="grid_3">
+				<p>
+					<label for="title">CEP</label>
+					<input type="text" name="cep">
+				</p>
+			</div>
+			<div class="grid_3">
+				<p>
+					<label for="title">Dt. de nasc.</label>
+					<cepep:campoData id="data"/>
+				</p>
+			</div>
+			<div class="grid_2">
+				<p>
+					<label for="title">Ativo</label>
+					<input type="checkbox" name="ativo">
+				</p>
+			</div>
+			<div class="grid_16">
+				<p class="submit">
+					<input type="reset" value="Resetar" />
+					<input type="submit" value="Salvar" />
+				</p>
+			</div>
+		</form>
+	</div>
 </body>
 <c:import url="../rodape.jsp"/>
 </html>
