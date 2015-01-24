@@ -57,7 +57,9 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<a href="cadastrarCliente">Cadastrar</a>
+	<div class="utils">
+		<a href="cadastrarCliente">Cadastrar</a>
+	</div>
 </body>
 <c:import url="../rodape.jsp"/>
 </html>

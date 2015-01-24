@@ -31,7 +31,7 @@ public class UsuarioDAO {
 	}
 
 	public Usuario existeUsuario(String login, String senha) {
-		String sql = "select * from usuarios where login=? and senha=?";
+		String sql = "SELECT * FROM USUARIOS where login=? and senha=?";
 		Usuario usuario = null;
 
 		try {
