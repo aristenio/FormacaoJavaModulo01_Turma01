@@ -86,6 +86,7 @@ public class PedidosController {
 					if(produtoSessao.getId().equals(item.getProduto().getId())){
 						novo = false;
 						item.setQuantidade(item.getQuantidade()+1);
+						item.setPreco(item.getPreco()+produtoSessao.getPreco());
 					}
 				}
 				

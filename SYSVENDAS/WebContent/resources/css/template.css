@@ -92,7 +92,7 @@ a:hover {
 	text-decoration:none;
 }
 
-a.edit, a.delete {
+a.add,a.edit, a.delete {
 	padding-left:25px;
 	background-repeat:no-repeat;
 	background-position:left center;

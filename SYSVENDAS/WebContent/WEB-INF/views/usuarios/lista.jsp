@@ -11,25 +11,33 @@
 
 </head>
 <body>
-	<table>
-		<th>ID</th>
-		<th>Nome</th>
-		<th>Login</th>
-		<th></th>
-		<th></th>
-		<th></th>
-		<c:forEach items="${usuarios}" var="usuario">
-			<tr>
-				<td>${usuario.id}</td>
-				<td>${usuario.nome}</td>
-				<td>${usuario.login}</td>
-				
-				<td><a href="editarUsuario?id=${usuario.id}">editar</a></td>
-				<td><a href="removerUsuario?id=${usuario.id}">remover</a></td>
-			</tr>
-		</c:forEach>
-	</table>
-	<a href="cadastrarUsuarios">Cadastrar</a>
+<div id="content" class="container_16 clearfix">
+	<div class="grid_16">
+		<h2>Lista de Usuários</h2>
+	</div>
+	<div class="grid_16">
+		<table>
+			<th>ID</th>
+			<th>Nome</th>
+			<th>Login</th>
+			<th>Ações</th>
+			<th></th>
+			<c:forEach items="${usuarios}" var="usuario">
+				<tr>
+					<td>${usuario.id}</td>
+					<td>${usuario.nome}</td>
+					<td>${usuario.login}</td>
+					<td><a href="editarUsuario?id=${usuario.id}" class="edit">editar</a></td>
+					<td><a href="removerUsuario?id=${usuario.id}" class="delete">remover</a></td>
+				</tr>
+			</c:forEach>
+		</table>
+		<div class="utils">
+			<a href="cadastrarUsuarios">Cadastrar</a>
+		</div>
+	</div>
+</div>
+
 </body>
 <c:import url="../rodape.jsp"/>
 </html>

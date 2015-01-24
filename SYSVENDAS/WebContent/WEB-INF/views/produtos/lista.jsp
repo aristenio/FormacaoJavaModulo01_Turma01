@@ -11,37 +11,48 @@
 
 </head>
 <body>
-	<table>
-		<th>ID</th>
-		<th>Nome</th>
-		<th>Preço</th>
-		<th>Preço com Desconto</th>
-		<th>Desconto</th>
-		<th>Descrição Pequena</th>
-		<th>Descrição Grande</th>
-		<th>Imagem</th>
-		<th>Quantidade no Estoque</th>
-		<th></th>
-		<th></th>
-		<th></th>
-		<c:forEach items="${produtos}" var="produto">
-			<tr>
-				<td>${produto.id}</td>
-				<td>${produto.nome}</td>
-				<td>${produto.preco}</td>
-				<td>${produto.precoDesconto}</td>
-				<td>${produto.desconto}</td>
-				<td>${produto.descricaoPequena}</td>
-				<td>${produto.descricaoGrande}</td>
-				<td>${produto.imagem}</td>
-				<td>${produto.quantidadeEstoque}</td>
-				
-				<td><a href="editarProdutos?id=${produto.id}">editar</a></td>
-				<td><a href="removerProdutos?id=${produto.id}">remover</a></td>
-			</tr>
-		</c:forEach>
-	</table>
-	<a href="cadastrarProdutos">Cadastrar</a>
+
+<div id="content" class="container_16 clearfix">
+	<div class="grid_16">
+		<h2>Lista de Produtos</h2>
+	</div>
+	<div class="grid_16">
+		<table>
+			<th>ID</th>
+			<th>Nome</th>
+			<th>Preço</th>
+			<th>Preço com Desc.</th>
+			<th>Desconto</th>
+			<th>Descrição Pequena</th>
+			<th>Descrição Grande</th>
+			<th>Imagem</th>
+			<th>Quantidade no Estoque</th>
+			<th>Ações</th>
+			<th></th>
+			<th></th>
+			<c:forEach items="${produtos}" var="produto">
+				<tr>
+					<td>${produto.id}</td>
+					<td>${produto.nome}</td>
+					<td>${produto.preco}</td>
+					<td>${produto.precoDesconto}</td>
+					<td>${produto.desconto}</td>
+					<td>${produto.descricaoPequena}</td>
+					<td>${produto.descricaoGrande}</td>
+					<td>${produto.imagem}</td>
+					<td>${produto.quantidadeEstoque}</td>
+					
+					<td><a href="editarProdutos?id=${produto.id}" class="edit">editar</a></td>
+					<td><a href="removerProdutos?id=${produto.id}" class="delete">remover</a></td>
+				</tr>
+			</c:forEach>
+		</table>
+		<div class="utils">
+			<a href="cadastrarProdutos">Cadastrar Novo Produto</a>
+		</div>
+	</div>
+</div>
+
 </body>
 <c:import url="../rodape.jsp"/>
 </html>
