@@ -10,6 +10,40 @@
 <title>Relatório de pedidos</title>
 </head>
 <body>
-
+<div id="content" class="container_16 clearfix">
+	<div class="grid_16">
+		<h2>Relatório de pedidos</h2>
+	</div>
+	<div class="grid_16">
+		<table>
+			<th>ID</th>
+			<th>Cliente</th>
+			<th>Data</th>
+			<th>Valor</th>
+			<c:forEach items="${pedidos}" var="pedido">
+				<tr>
+					<td>${pedido.id}</td>
+					<td>${pedido.cliente.nome}</td>
+					<td>
+						<fmt:formatDate pattern="dd-MM-yyyy" value="${pedido.data}"/>
+					</td>
+					<td>${pedido.valorTotal}</td>
+				</tr>
+				<tr></tr>
+				<tr>Produto</tr>
+				<tr>Quantidade</tr>
+				<tr>Valor Unitário</tr>
+				<c:forEach items="${pedido.itensPedido}" var="itemPedido">
+					<tr>
+						<td></td>
+						<td>${itemPedido.produto.nome}</td>
+						<td>${itemPedido.quantidade}</td>
+						<td>${itemPedido.produto.preco}</td>
+					</tr>
+				</c:forEach>
+			</c:forEach>
+		</table>
+	</div>
+</div>
 </body>
 </html>

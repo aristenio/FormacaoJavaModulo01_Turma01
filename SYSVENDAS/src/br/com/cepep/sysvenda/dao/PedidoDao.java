@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -50,7 +51,7 @@ public class PedidoDao {
 			
 			Pedido pedidoInserido =  this.consultarPedido(pedido);
 			
-			List<ItemPedido> itensPedido = pedido.getIntensPedido();
+			List<ItemPedido> itensPedido = pedido.getItensPedido();
 			for (ItemPedido itemPedido : itensPedido) {
 				itemPedido.setIdPedido(pedidoInserido.getId());
 				itensPedidoDao.inserir(itemPedido);
@@ -93,6 +94,31 @@ public class PedidoDao {
 			throw e;
 		}
 		
+	}
+	
+	public List<Pedido> consultarPedidos() throws SQLException{
+		String sql = "SELECT * FROM PEDIDOS";
+		
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		
+		ResultSet resultSet = preparedStatement.executeQuery();
+		
+		List<Pedido> retorno = new ArrayList<>();
+		
+		while (resultSet.next()){
+			Pedido pedido = new Pedido();
+			pedido.setId(resultSet.getLong("ID"));
+			pedido.setData(resultSet.getDate("DATA_PEDIDO"));
+			pedido.setValorTotal(resultSet.getDouble("VALOR_TOTAL"));
+			
+			Cliente cliente = clienteDao.consultarCliente(resultSet.getLong("ID_CLIENTE"));
+			pedido.setCliente(cliente);
+			List<ItemPedido> intensPedido = itensPedidoDao.consultarItensPedido(pedido.getId());
+			pedido.setIntensPedido(intensPedido);
+			retorno.add(pedido);
+		}
+		
+		return retorno;
 	}
 
 }

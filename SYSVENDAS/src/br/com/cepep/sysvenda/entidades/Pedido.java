@@ -10,7 +10,7 @@ public class Pedido {
 	private Cliente cliente;
 	private Date data;
 	private Double valorTotal;
-	private List<ItemPedido> intensPedido = new ArrayList<ItemPedido>();
+	private List<ItemPedido> itensPedido = new ArrayList<ItemPedido>();
 	
 	public Long getId() {
 		return id;
@@ -30,11 +30,11 @@ public class Pedido {
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	public List<ItemPedido> getIntensPedido() {
-		return intensPedido;
+	public List<ItemPedido> getItensPedido() {
+		return itensPedido;
 	}
-	public void setIntensPedido(List<ItemPedido> intensPedido) {
-		this.intensPedido = intensPedido;
+	public void setIntensPedido(List<ItemPedido> itensPedido) {
+		this.itensPedido = itensPedido;
 	}
 	public Cliente getCliente() {
 		return cliente;

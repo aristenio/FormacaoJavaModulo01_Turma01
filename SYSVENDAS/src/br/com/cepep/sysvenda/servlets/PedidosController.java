@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.cepep.sysvenda.dao.ClienteDao;
@@ -126,6 +127,18 @@ public class PedidosController {
 			
 			return "pedidos/inseridoOk";
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@RequestMapping("relatorioPedidos")
+	public String consultarPedidos(Model model) throws Exception{
+		try {
+			List<Pedido> pedidos = pedidoDao.consultarPedidos();
+			model.addAttribute("pedidos", pedidos);
+			return "pedidos/relatorio";
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
